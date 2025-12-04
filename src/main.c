@@ -4,16 +4,20 @@
 #include "./../include/calculator.h"
 
 int main(int argc, char *argv[]) {
-    if (argc != 4) {
-        fprintf(stderr, "Usage: %s <operation> <a> <b>\n", argv[0]);
+    if (argc < 3) {
+        fprintf(stderr, "Usage: %s <operation> <a> [b]\n", argv[0]);
         return EXIT_FAILURE;
     }
 
     char *op = argv[1];
     double a = atof(argv[2]);
-    double b = atof(argv[3]);
+    double b = 0;
     double r = 0;
     int success = 1;
+
+    if (argc == 4) {
+        b = atof(argv[3]);
+    }
 
     if (strcmp(op, "add") == 0) {
         r = _add(a, b);
@@ -31,6 +35,9 @@ int main(int argc, char *argv[]) {
         }
         r = _div(a, b);
     } 
+    else if (strcmp(op, "car") == 0) {
+        r = _car(a);
+    }
     else {
         fprintf(stderr, "Erreur : Operateur '%s' inconnu.\n", op);
         success = 0;
